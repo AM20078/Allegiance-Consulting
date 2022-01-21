@@ -1,0 +1,22 @@
+﻿@page "/"
+@inject NavigationManager navManager
+
+<PageTitle>Register</PageTitle>
+
+<form class="form" >
+    <h1>Registration</h1>
+    <hr />
+    <label class="name">Name:</label>
+    <label class="surname">Surname:</label>
+    <br />
+    <input class="name" type="text" maxlength="20" required />
+    <input type="text" maxlength="20" />
+    <br />
+
+    <label class="username">Username:</label>
+    <br />
+    <input class="username" maxlength="20" @bind="@username" required/>
+    <br />
+
+    <button class="btn" @onclick="OnClick" >Start Chat</button>
+</form>
