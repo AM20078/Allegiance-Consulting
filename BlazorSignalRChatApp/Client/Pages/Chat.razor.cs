@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.SignalR.Client;
+using BlazorSignalRChatApp.Shared;
 
 namespace BlazorSignalRChatApp.Client.Pages
 {
@@ -10,9 +11,8 @@ namespace BlazorSignalRChatApp.Client.Pages
         public string? username { get; set; }
 
         private HubConnection? hubConnection;
-        private List<string> messages = new List<string>();
+        private List<Message> messages = new List<Message>();
         private string? _message;
-        private string? ReceiveUser;
 
         protected override async Task OnInitializedAsync()
         {
@@ -23,9 +23,8 @@ namespace BlazorSignalRChatApp.Client.Pages
             hubConnection.On("ReceiveMessage", (Action<string, string>)((user, message) =>
             {
                 _message = "";
-                ReceiveUser = user;
-                var encodedMsg = $"{user} : {message}";
-                messages.Add(encodedMsg);
+                bool isSender = user.Equals(username, StringComparison.OrdinalIgnoreCase);
+                messages.Add(new Message(user, message, isSender));
                 StateHasChanged();
             }));
 
@@ -41,14 +40,5 @@ namespace BlazorSignalRChatApp.Client.Pages
         }
         public bool Connected =>
             hubConnection?.State == HubConnectionState.Connected;
-
-        public void Enter(KeyboardEventArgs e)
-        {
-            if (e.Code == "Enter" || e.Code == "NumpadEnter")
-            {
-                _ = SendMessage();
-                _message = "";
-            }
-        }
     }
 }

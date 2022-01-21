@@ -13,19 +13,13 @@
         <div id="messagesList">
             @foreach (var message in messages)
             {
-                if (ReceiveUser == username)
-                {
-                    <div style="text-align: left" > @message <div style="text-align: right"> @DateTime.Now</div></div>
-                    
-                }
-
-                if (ReceiveUser != username)
-                {
-                    <div style="text-align: left"> @message <div style="text-align: right"> @DateTime.Now</div></div>
-                }
+                <div style="color: black" class="@message.Display">
+                    <div style="text-align: left">@message.Messages</div>
+                    <div style="text-align: right"><b>@message.Username</b> @DateTime.Now </div>
+                </div>
             }
         </div>
 
-    <textarea class="input-lg" placeholder="Enter a message" @bind="_message"  autofocus ></textarea>
+    <textarea class="input-lg" placeholder="Enter a message" @bind="_message" autofocus ></textarea>
     <button class="btn" @onclick="SendMessage" disabled="@(!Connected)">Send</button>
 </div>
