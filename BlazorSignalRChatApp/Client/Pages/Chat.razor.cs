@@ -16,10 +16,12 @@ namespace BlazorSignalRChatApp.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            //Setup server connection
             hubConnection = new HubConnectionBuilder()
                 .WithUrl(navManager.ToAbsoluteUri("/chathub"))
                 .Build();
 
+            //Retrieve message from server
             hubConnection.On("ReceiveMessage", (Action<string, string>)((user, message) =>
             {
                 _message = "";
@@ -31,6 +33,7 @@ namespace BlazorSignalRChatApp.Client.Pages
             await hubConnection.StartAsync();
         }
 
+        //Send message to server
         private async Task SendMessage()
         {
             if (hubConnection is not null)
@@ -38,6 +41,8 @@ namespace BlazorSignalRChatApp.Client.Pages
                 await hubConnection.SendAsync("SendMessage", username, _message);
             }
         }
+
+        //Check if user is connected to server
         public bool Connected =>
             hubConnection?.State == HubConnectionState.Connected;
     }

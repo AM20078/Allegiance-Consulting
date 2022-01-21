@@ -19,6 +19,7 @@ namespace BlazorSignalRChatApp.Shared
         public string Messages { get; set; }
         public bool Sender { get; set; }
 
+        //Style in which the messages are send out
         public string Display => Sender ? "sent" : "received";
     }
 }

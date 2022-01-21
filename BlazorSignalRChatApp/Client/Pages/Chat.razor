@@ -6,11 +6,13 @@
 <h2>Chat</h2>
 
     You are connected as <b>@username</b>
-    
+   
 <hr />
 
 <div id="scrollbox">
         <div id="messagesList">
+
+            @*Display messages saved in list*@
             @foreach (var message in messages)
             {
                 <div style="color: black" class="@message.Display">
@@ -19,7 +21,7 @@
                 </div>
             }
         </div>
-
+    
     <textarea class="input-lg" placeholder="Enter a message" @bind="_message" autofocus ></textarea>
     <button class="btn" @onclick="SendMessage" disabled="@(!Connected)">Send</button>
 </div>

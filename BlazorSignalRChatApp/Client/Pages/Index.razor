@@ -3,18 +3,26 @@
 
 <PageTitle>Register</PageTitle>
 
+@*Registration screen*@
 <form class="form" >
     <h1>Registration</h1>
     <hr />
+    
     <label class="name">Name:</label>
     <label class="surname">Surname:</label>
     <br />
+
+    @*Get user name*@
     <input class="name" type="text" maxlength="20" required />
+
+    @*Get user surname*@
     <input type="text" maxlength="20" />
     <br />
 
     <label class="username">Username:</label>
     <br />
+
+    @*Get user username*@
     <input class="username" maxlength="20" @bind="@username" required/>
     <br />
 
